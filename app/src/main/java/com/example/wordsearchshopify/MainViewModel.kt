@@ -11,6 +11,8 @@ class MainViewModel : ViewModel() {
 
     private val _gridLettersLiveData = MutableLiveData<List<Letter>>()
     val gridLettersLiveData: LiveData<List<Letter>> = _gridLettersLiveData
+    private val _gameCompleteLiveData = MutableLiveData<Boolean>()
+    val gameCompleteLiveData: LiveData<Boolean> = _gameCompleteLiveData
 
     private var arrayCapacity = 100
     private val words = listOf("swift", "kotlin", "objectivec", "variable", "java", "mobile")
@@ -54,8 +56,10 @@ class MainViewModel : ViewModel() {
     }
 
     private fun validateWords(lettersToValidate: MutableList<Letter>): List<Letter> {
-        var curWord = StringBuilder()
+        val curWord = StringBuilder()
+        var wordsFound = 0
         (0..9).forEach rowLoop@{  row ->
+            curWord.clear()
             (0..9).forEach colLoop@{ col ->
                 val letter = lettersToValidate[row * 10 + col]
                 if (letter.isSelected) {
@@ -65,17 +69,23 @@ class MainViewModel : ViewModel() {
                 }
 
                 if (words.contains(curWord.toString())) {
+                    ++wordsFound
                     (0..col).reversed().forEach {
                         val index = row * 10 + it
                         if (lettersToValidate[index].isSelected) {
-                            lettersToValidate[index] = lettersToValidate[index].copy(isSelected = false, isFound = true)
+                            lettersToValidate[index] = lettersToValidate[index].copy(isFound = true)
                         } else {
                             return@forEach
                         }
                     }
+                    return@colLoop
                 }
             }
         }
+        if (wordsFound == words.size) {
+            _gameCompleteLiveData.postValue(true)
+        }
+
         return lettersToValidate
     }
 }
