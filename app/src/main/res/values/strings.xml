@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WordSearchShopify</string>
+    <string name="shuffle">Shuffle Board</string>
+    <string name="validate">Validate Board</string>
+</resources>

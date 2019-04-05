@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".MainActivity">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+    >
+
+        <Button
+                android:id="@+id/shuffleButton"
+                android:text="@string/shuffle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="24dp"
+                android:layout_centerHorizontal="true"
+        />
+
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/grid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/square_border"
+                android:padding="4dp"
+                android:overScrollMode="never"
+                android:layout_below="@id/shuffleButton"
+                android:layout_centerHorizontal="true"
+        />
+
+    </RelativeLayout>
+
+</ScrollView>
